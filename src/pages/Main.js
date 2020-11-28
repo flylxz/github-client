@@ -1,65 +1,42 @@
 import { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { v4 as uuidv4 } from 'uuid';
+import PropTypes from 'prop-types';
 
-import { useGithub } from '../hooks/useGithub';
-
-import { ListItem, ItemCard } from '../components/';
+import { ListItem, ItemCard, Search } from '../components/';
 
 import { Section, Row } from '../styledComponents';
 
-// add search, add fav page
+// add redux -
+// add search +-
+// add fav page +
+// header fav counter +
+// beutify -
 
-export const Main = () => {
-  const { repos, getData, setPage, reposItem } = useGithub();
-  // console.log(repos);
+export const Main = ({
+  data,
+  fav,
+  hasMore,
+  toggleFavorite,
+  handleLoading,
+  setQuery,
+}) => {
+  console.log(data);
 
-  const [hasMore, setHasMore] = useState(true);
   const [choosenItem, setChoosenItem] = useState(null);
-  const [fav, setFav] = useState([
-    {
-      body:
-        'quia et suscipit↵suscipit recusandae consequuntur expedita et cum↵reprehenderit molestiae ut ut quas totam↵nostrum rerum est autem sunt rem eveniet architecto',
-      id: 1,
-      title:
-        'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
-      userId: 1,
-    },
-    {
-      body:
-        'et iusto sed quo iure↵voluptatem occaecati omnis eligendi aut ad↵voluptatem doloribus vel accusantium quis pariatur↵molestiae porro eius odio et labore et velit aut',
-      id: 3,
-      title: 'ea molestias quasi exercitationem repellat qui ipsa sit aut',
-      userId: 1,
-    },
-  ]);
-
-  const handleLoading = () => {
-    if (repos.length < reposItem - 1) {
-      setPage((page) => page + 1);
-      getData();
-    } else setHasMore(false);
-  };
 
   const chooseItem = (id) => {
-    const item = repos.filter((repo) => repo.id === id);
+    const item = data.filter((repo) => repo.id === id);
     setChoosenItem(item[0]);
-  };
-
-  const toggleFavorite = (id) => {
-    const exist = fav.find((x) => x.id === id);
-    if (exist) {
-      setFav(fav.filter((i) => i.id !== id));
-    } else {
-      setFav((fav) => [...fav, repos.find((i) => i.id === id)]);
-    }
   };
 
   return (
     <Row>
       <Section>
+        <Search setQuery={setQuery} />
         <ul>
           <InfiniteScroll
-            dataLength={repos.length} //This is important field to render the next data
+            dataLength={data.length} //This is important field to render the next data
             next={handleLoading}
             hasMore={hasMore}
             scrollThreshold={0.5}
@@ -70,9 +47,9 @@ export const Main = () => {
               </p>
             }
           >
-            {repos.map((item) => (
+            {data.map((item) => (
               <ListItem
-                key={item.id + item.title}
+                key={uuidv4()}
                 item={item}
                 fav={fav}
                 handleClick={chooseItem}
@@ -86,4 +63,13 @@ export const Main = () => {
       </Section>
     </Row>
   );
+};
+
+Main.propTypes = {
+  data: PropTypes.array.isRequired,
+  fav: PropTypes.array.isRequired,
+  hasMore: PropTypes.bool.isRequired,
+  toggleFavorite: PropTypes.func.isRequired,
+  handleLoading: PropTypes.func.isRequired,
+  setQuery: PropTypes.func.isRequired,
 };

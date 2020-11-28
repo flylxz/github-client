@@ -36,5 +36,6 @@ export const ItemCard = ({ item, fav, handleClick }) => {
 
 ItemCard.propTypes = {
   item: PropTypes.object,
+  fav: PropTypes.array.isRequired,
   handleClick: PropTypes.func.isRequired,
 };

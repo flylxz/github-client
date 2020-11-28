@@ -1,24 +1,30 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-import { Row } from '../styledComponents';
-
-export const Header = () => {
+export const Header = ({ num }) => {
   return (
-    <header>
-      <Row>
-        <h2>GitHub Client</h2>
+    <header className='space-btw'>
+      <h2>GitHub Client</h2>
 
-        <nav>
-          <Row>
-            <li>
-              <Link to='/'>Top repo</Link>
-            </li>
-            <li>
-              <Link to='/favorites'>Favorite repo</Link>
-            </li>
-          </Row>
-        </nav>
-      </Row>
+      <nav>
+        <ul className='space-btw'>
+          <li>
+            <NavLink to='/' exact activeClassName='selected'>
+              Top repo
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to='/favorites' activeClassName='selected'>
+              Favorite repo
+            </NavLink>
+            {num > 0 && <div>{num}</div>}
+          </li>
+        </ul>
+      </nav>
     </header>
   );
+};
+
+Header.propTypes = {
+  num: PropTypes.number.isRequired,
 };

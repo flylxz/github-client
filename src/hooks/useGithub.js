@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 
 export const useGithub = () => {
-  const [repos, setRepos] = useState([]);
-  const [reposItem, setReposItem] = useState(0);
+  const [data, setData] = useState([]);
+  const [dataCount, setDataCount] = useState(0);
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState('');
 
@@ -13,19 +13,23 @@ export const useGithub = () => {
     let url = `https://jsonplaceholder.typicode.com/posts`;
 
     if (query) {
-      url += `?${query}`;
+      url += `?q=${query}`;
     } else {
       url += `?&_page=${page}&_limit=20`;
       //   url += `&page=${page}&per_page=10`;
     }
 
-    // console.log(url);
+    console.log(url);
 
     try {
       const res = await fetch(url);
-      const data = await res.json();
-      setReposItem(res.headers.get('X-Total-Count'));
-      setRepos([...repos, ...data]);
+      const resData = await res.json();
+      if (query.length) {
+        setData(resData);
+      } else {
+        setData([...data, ...resData]);
+      }
+      setDataCount(res.headers.get('X-Total-Count'));
     } catch (error) {
       console.log('error: ', error);
     }
@@ -35,5 +39,5 @@ export const useGithub = () => {
     getData();
   }, [getData]);
 
-  return { repos, getData, page, setPage, setQuery, reposItem };
+  return { data, getData, page, setPage, setQuery, dataCount };
 };
