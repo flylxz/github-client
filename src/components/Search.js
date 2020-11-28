@@ -18,14 +18,15 @@ export const Search = ({ setQuery }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className=' relative'>
       <input
+        className='search-input'
         type='text'
         value={text}
         placeholder='Search repo'
         onChange={(e) => handleChange(e.target.value)}
       />
-      <FaSistrix />
+      <FaSistrix className='search-icon' />
     </form>
   );
 };

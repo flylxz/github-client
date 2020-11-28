@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { FaStar } from 'react-icons/fa';
 import { VscGithub } from 'react-icons/vsc';
 
-import { Row } from '../styledComponents';
+// import { Row } from '../styledComponents';
 
 export const ItemCard = ({ item, fav, handleClick }) => {
   let isFav;
@@ -11,18 +11,19 @@ export const ItemCard = ({ item, fav, handleClick }) => {
   return (
     <>
       {item && (
-        <div>
-          <Row>
+        <div className='block card'>
+          <div className='p-1'>
             {item.title} <FaStar size={24} color='yellow' />
-          </Row>
-          <div>
-            <Row>
+          </div>
+          <hr />
+          <div className='p-1'>
+            <div>
               <h3>image</h3>
               <h4>
                 {item.title}
                 <VscGithub size={24} />
               </h4>
-            </Row>
+            </div>
             <p>{item.body}</p>
             <button onClick={() => handleClick(item.id)}>
               {isFav ? 'Delete from favorites' : 'Add to favorites'}

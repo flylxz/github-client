@@ -15,7 +15,7 @@ export const useGithub = () => {
     if (query) {
       url += `?q=${query}`;
     } else {
-      url += `?&_page=${page}&_limit=20`;
+      url += `?&_page=${page}&_limit=10`;
       //   url += `&page=${page}&per_page=10`;
     }
 

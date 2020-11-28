@@ -27,10 +27,6 @@ function App() {
   ]);
   const [hasMore, setHasMore] = useState(true);
 
-  // const setQuery = (q) => {
-  //   console.log(q);
-  // };
-
   const handleLoading = () => {
     if (data.length < dataCount - 1) {
       setPage((page) => page + 1);
@@ -39,11 +35,11 @@ function App() {
   };
 
   const toggleFavorite = (id) => {
-    const exist = fav.find((x) => x.id === id);
+    const exist = fav.find((i) => i.id === id);
     if (exist) {
       setFav(fav.filter((i) => i.id !== id));
     } else {
-      setFav((fav) => [...fav, data.find((i) => i.id === id)]);
+      setFav([...fav, data.find((i) => i.id === id)]);
     }
   };
 

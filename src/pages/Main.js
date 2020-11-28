@@ -5,13 +5,10 @@ import PropTypes from 'prop-types';
 
 import { ListItem, ItemCard, Search } from '../components/';
 
-import { Section, Row } from '../styledComponents';
-
+// git fetch -
 // add redux -
 // add search +-
-// add fav page +
-// header fav counter +
-// beutify -
+// beautify -
 
 export const Main = ({
   data,
@@ -21,7 +18,7 @@ export const Main = ({
   handleLoading,
   setQuery,
 }) => {
-  console.log(data);
+  // console.log(data);
 
   const [choosenItem, setChoosenItem] = useState(null);
 
@@ -31,10 +28,10 @@ export const Main = ({
   };
 
   return (
-    <Row>
-      <Section>
+    <div className='container space-btw'>
+      <section className='col-1 p-1'>
         <Search setQuery={setQuery} />
-        <ul>
+        <ul className='block scroll'>
           <InfiniteScroll
             dataLength={data.length} //This is important field to render the next data
             next={handleLoading}
@@ -57,11 +54,11 @@ export const Main = ({
             ))}
           </InfiniteScroll>
         </ul>
-      </Section>
-      <Section>
+      </section>
+      <section className='col-1'>
         <ItemCard item={choosenItem} fav={fav} handleClick={toggleFavorite} />
-      </Section>
-    </Row>
+      </section>
+    </div>
   );
 };
 
