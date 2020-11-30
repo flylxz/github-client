@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
+import { useDispatch, useSelector } from 'react-redux';
+
 import { useGithub } from './hooks/useGithub';
 
 import { Header } from './components';
@@ -10,6 +12,10 @@ export const App = () => {
   const { data, getData, page, setPage, dataCount, setQuery } = useGithub();
   const [fav, setFav] = useState([]);
   const [hasMore, setHasMore] = useState(true);
+
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state);
+  console.log(state);
 
   const handleNext = () => {
     if (page < Math.ceil(dataCount / 20)) {
