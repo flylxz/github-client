@@ -1,5 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 
+const accessToken = process.env.REACT_APP_GITHUB_PERSONAL_ACCESS_TOKEN || '';
+
 export const useGithub = () => {
   const [data, setData] = useState([]);
   const [dataCount, setDataCount] = useState(0);
@@ -12,9 +14,9 @@ export const useGithub = () => {
 
     if (query.length) {
       setPage(1);
-      url += `?q=${query}&page=${page}&per_page=20&access_token=f58feb00dc1d3dc8685386e795d239579b23b580`;
+      url += `?q=${query}&sort=stars&page=${page}&per_page=20&access_token=${accessToken}`;
     } else {
-      url += `?q=created:>2020-01-01&sort=stars&page=${page}&per_page=20&access_token=f58feb00dc1d3dc8685386e795d239579b23b580`;
+      url += `?q=created:>2020-01-01&sort=stars&page=${page}&per_page=20&access_token=${accessToken}`;
     }
 
     // console.log(url);
