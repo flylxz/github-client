@@ -3,20 +3,16 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
 
-import { ListItem, ItemCard, Search } from '../components/';
-
-// git fetch -
-// add redux -
-// add search +-
-// beautify -
+import { ListItem, ItemCard, Search } from '../components';
 
 export const Main = ({
   data,
   fav,
   hasMore,
   toggleFavorite,
-  handleLoading,
+  handleNext,
   setQuery,
+  setPage,
 }) => {
   // console.log(data);
 
@@ -29,12 +25,18 @@ export const Main = ({
 
   return (
     <div className='container space-btw'>
-      <section className='col-1 p-1'>
+      <section className='col-1'>
         <Search setQuery={setQuery} />
         <ul className='block scroll'>
+          <li className='tab-head space-btw center'>
+            <p className='col-1 gap-1 right'>No</p>
+            <p className='col-6  gap-1 center'>Repo</p>
+            <p className='col-1 gap-1 right'>Stars</p>
+            <p className='col-1 gap-1 right'>Fav</p>
+          </li>
           <InfiniteScroll
             dataLength={data.length} //This is important field to render the next data
-            next={handleLoading}
+            next={handleNext}
             hasMore={hasMore}
             scrollThreshold={0.5}
             loader={<h4>Loading...</h4>}
@@ -44,10 +46,11 @@ export const Main = ({
               </p>
             }
           >
-            {data.map((item) => (
+            {data.map((item, idx) => (
               <ListItem
                 key={uuidv4()}
                 item={item}
+                idx={idx}
                 fav={fav}
                 handleClick={chooseItem}
               />
@@ -67,6 +70,6 @@ Main.propTypes = {
   fav: PropTypes.array.isRequired,
   hasMore: PropTypes.bool.isRequired,
   toggleFavorite: PropTypes.func.isRequired,
-  handleLoading: PropTypes.func.isRequired,
+  handleNext: PropTypes.func.isRequired,
   setQuery: PropTypes.func.isRequired,
 };

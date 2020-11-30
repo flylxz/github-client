@@ -1,9 +1,11 @@
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import { Badge } from '../styledComponents';
+
 export const Header = ({ num }) => {
   return (
-    <header className='space-btw'>
+    <header className='space-btw center'>
       <h2>GitHub Client</h2>
 
       <nav>
@@ -17,7 +19,8 @@ export const Header = ({ num }) => {
             <NavLink to='/favorites' activeClassName='selected'>
               Favorite repo
             </NavLink>
-            {num > 0 && <div>{num}</div>}
+            {num > 0 && <Badge>{num}</Badge>}
+            {/* Budge not working */}
           </li>
         </ul>
       </nav>

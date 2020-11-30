@@ -6,7 +6,7 @@ import { ItemCard } from '../components/';
 export const Favorites = ({ fav, toggleFavorite }) => {
   return (
     <section className='container flex-wrap'>
-      {fav.length &&
+      {fav.length > 0 &&
         fav.map((item) => (
           <ItemCard
             key={uuidv4()}

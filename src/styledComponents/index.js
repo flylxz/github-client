@@ -1,4 +1,4 @@
-import { Section } from './section';
-import { Row } from './row';
+import { Button } from './Button';
+import { Badge } from './Badge';
 
-export { Section, Row };
+export { Button, Badge };

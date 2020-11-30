@@ -7,31 +7,30 @@ export const useGithub = () => {
   const [query, setQuery] = useState('');
 
   const getData = useCallback(async () => {
-    // const _apiUrl = 'https://api.github.com/';
-    // let url = `${_apiUrl}repositories`;
+    const _apiUrl = 'https://api.github.com/';
+    let url = `${_apiUrl}search/repositories`;
 
-    let url = `https://jsonplaceholder.typicode.com/posts`;
-
-    if (query) {
-      url += `?q=${query}`;
+    if (query.length) {
+      setPage(1);
+      url += `?q=${query}&page=${page}&per_page=20&access_token=f58feb00dc1d3dc8685386e795d239579b23b580`;
     } else {
-      url += `?&_page=${page}&_limit=10`;
-      //   url += `&page=${page}&per_page=10`;
+      url += `?q=created:>2020-01-01&sort=stars&page=${page}&per_page=20&access_token=f58feb00dc1d3dc8685386e795d239579b23b580`;
     }
 
-    console.log(url);
+    // console.log(url);
 
     try {
       const res = await fetch(url);
       const resData = await res.json();
-      if (query.length) {
-        setData(resData);
+
+      if (page === 1) {
+        setData(() => resData.items);
+        setDataCount(() => resData.total_count);
       } else {
-        setData([...data, ...resData]);
+        setData([...data, ...resData.items]);
       }
-      setDataCount(res.headers.get('X-Total-Count'));
     } catch (error) {
-      console.log('error: ', error);
+      console.log('error: ', error.message);
     }
   }, [query, page]);
 
