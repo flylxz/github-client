@@ -11,13 +11,9 @@ class Main extends Component {
     choosenItem: null,
   };
 
-  componentDidMount() {
-    this.getChoosenItem();
-  }
+  componentDidMount = () => this.getChoosenItem();
 
-  componentDidUpdate() {
-    this.setChoosenItem(this.state.choosenItem);
-  }
+  componentDidUpdate = () => this.setChoosenItem(this.state.choosenItem);
 
   chooseItem = (id) => {
     const item = this.props.data.filter((repo) => repo.id === id);

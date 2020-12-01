@@ -24,7 +24,7 @@ const initialState = {
 };
 
 const toggleFavorite = (state, item) => {
-  const { data, fav } = state;
+  const { fav } = state;
   const exist = fav.find((i) => i.id === item.id);
   if (exist) {
     return { ...state, fav: fav.filter((i) => i.id !== item.id) };
