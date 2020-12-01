@@ -11,6 +11,9 @@ body
   ul
     padding: 0
 
+  .App
+    position: relative
+
   .container
     padding: 1rem
 
@@ -134,6 +137,27 @@ body
     position: absolute
     right: 10px
     top: 10px
+
+  .overlay
+    background: rgba(#aeaeae,0.5)
+    position: absolute
+    top: 0
+    right: 0
+    left: 0
+    bottom: 0
+    height: 100vh
+    display: flex
+    justify-content: center
+    align-items: center
+
+    h2
+      font-size: 2rem
+
+      &.error
+        color: #bb0000
+
+      &.loading
+        color: #00bb00
 
   @media screen and (max-width:620px)
     font-size: 24px

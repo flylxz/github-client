@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import InfiniteScroll from 'react-infinite-scroll-component';
-import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
 
-import { ListItem, ItemCard, Search } from '../components';
+import { ItemCard, Search, InfiniteScrollComponent } from '../components';
 
 export const Main = ({
   data,
@@ -34,28 +32,13 @@ export const Main = ({
             <p className='col-1 gap-1 right'>Stars</p>
             <p className='col-1 gap-1 right'>Fav</p>
           </li>
-          <InfiniteScroll
-            dataLength={data.length} //This is important field to render the next data
-            next={handleNext}
+          <InfiniteScrollComponent
+            data={data}
+            fav={fav}
             hasMore={hasMore}
-            scrollThreshold={0.5}
-            loader={<h4>Loading...</h4>}
-            endMessage={
-              <p style={{ textAlign: 'center' }}>
-                <b>Yay! You have seen it all</b>
-              </p>
-            }
-          >
-            {data.map((item, idx) => (
-              <ListItem
-                key={uuidv4()}
-                item={item}
-                idx={idx}
-                fav={fav}
-                handleClick={chooseItem}
-              />
-            ))}
-          </InfiniteScroll>
+            chooseItem={chooseItem}
+            handleNext={handleNext}
+          />
         </ul>
       </section>
       <section className='col-1'>

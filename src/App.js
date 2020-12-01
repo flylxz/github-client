@@ -1,35 +1,56 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useGithub } from './hooks/useGithub';
 
+import {
+  fetchData,
+  setPage,
+  setQuery,
+  setHasMore,
+  setFav,
+} from './redux/actions';
+
 import { Header } from './components';
 import { Main, Favorites } from './pages';
 
-export const App = () => {
-  const { data, getData, page, setPage, dataCount, setQuery } = useGithub();
-  const [fav, setFav] = useState([]);
-  const [hasMore, setHasMore] = useState(true);
+// search -
+// infinite loading -
+// rewrite to class component -
+// cleaning -
 
+export const App = () => {
   const dispatch = useDispatch();
-  const state = useSelector((state) => state);
-  console.log(state);
+  const {
+    data,
+    fav,
+    dataCount,
+    hasMore,
+    loading,
+    error,
+    query,
+    page,
+  } = useSelector((state) => state);
+
+  useEffect(() => {
+    dispatch(fetchData());
+  }, [page, query]);
 
   const handleNext = () => {
     if (page < Math.ceil(dataCount / 20)) {
-      setPage((page) => page + 1);
-      getData();
-    } else setHasMore(false);
+      dispatch(setPage((page) => page + 1));
+      dispatch(fetchData());
+    } else dispatch(setHasMore(false));
   };
 
   const toggleFavorite = (id) => {
     const exist = fav.find((i) => i.id === id);
     if (exist) {
-      setFav(fav.filter((i) => i.id !== id));
+      dispatch(setFav(fav.filter((i) => i.id !== id)));
     } else {
-      setFav([...fav, data.find((i) => i.id === id)]);
+      dispatch(setFav([...fav, data.find((i) => i.id === id)]));
     }
   };
 
@@ -37,23 +58,33 @@ export const App = () => {
     <div className='App'>
       <Router>
         <Header num={fav.length} />
-        <Switch>
-          <Route path='/' exact>
-            <Main
-              data={data}
-              fav={fav}
-              isFav={setFav}
-              hasMore={hasMore}
-              toggleFavorite={toggleFavorite}
-              handleNext={handleNext}
-              setQuery={setQuery}
-              setPage={setPage}
-            />
-          </Route>
-          <Route path='/favorites'>
-            <Favorites fav={fav} toggleFavorite={toggleFavorite} />
-          </Route>
-        </Switch>
+        {loading ? (
+          <div className='overlay'>
+            <h2 className='loading'>Loading...</h2>
+          </div>
+        ) : error ? (
+          <div className='overlay'>
+            <h2 className='error'>{error}</h2>
+          </div>
+        ) : (
+          <Switch>
+            <Route path='/' exact>
+              <Main
+                data={data}
+                fav={fav}
+                isFav={setFav}
+                hasMore={hasMore}
+                toggleFavorite={toggleFavorite}
+                handleNext={handleNext}
+                setQuery={setQuery}
+                setPage={setPage}
+              />
+            </Route>
+            <Route path='/favorites'>
+              <Favorites fav={fav} toggleFavorite={toggleFavorite} />
+            </Route>
+          </Switch>
+        )}
       </Router>
     </div>
   );
