@@ -23,13 +23,14 @@ const initialState = {
   error: '',
 };
 
-const toggleFavorite = (state, id) => {
+const toggleFavorite = (state, item) => {
   const { data, fav } = state;
-  const exist = fav.find((i) => i.id === id);
+  const exist = fav.find((i) => i.id === item.id);
   if (exist) {
-    return { ...state, fav: fav.filter((i) => i.id !== id) };
+    return { ...state, fav: fav.filter((i) => i.id !== item.id) };
   } else {
-    return { ...state, fav: [...fav, data.find((i) => i.id === id)] };
+    // return { ...state, fav: [...fav, data.find((i) => i.id === id)] };
+    return { ...state, fav: [...fav, item] };
   }
 };
 const handleNext = (state) => {
@@ -68,8 +69,8 @@ export const rootReducer = (state = initialState, action) => {
       return { ...state, fav: action.payload };
 
     case TOGGLE_FAV:
-      const id = action.payload;
-      return toggleFavorite(state, id);
+      const item = action.payload;
+      return toggleFavorite(state, item);
 
     default:
       return state;

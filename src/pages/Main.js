@@ -11,9 +11,28 @@ class Main extends Component {
     choosenItem: null,
   };
 
+  componentDidMount() {
+    this.getChoosenItem();
+  }
+
+  componentDidUpdate() {
+    this.setChoosenItem(this.state.choosenItem);
+  }
+
   chooseItem = (id) => {
     const item = this.props.data.filter((repo) => repo.id === id);
     this.setState({ choosenItem: item[0] });
+  };
+
+  setChoosenItem = (item) => {
+    localStorage.setItem('choosenItem', JSON.stringify(item));
+  };
+
+  getChoosenItem = () => {
+    const choosenItem = localStorage.getItem('choosenItem')
+      ? JSON.parse(localStorage.getItem('choosenItem'))
+      : null;
+    this.setState({ choosenItem });
   };
 
   render() {

@@ -45,7 +45,7 @@ export const setLoadingNext = () => ({ type: SET_LODAING_NEXT });
 
 export const setFav = (fav) => ({ type: SET_FAV, payload: fav });
 
-export const toggleFav = (id) => ({ type: TOGGLE_FAV, payload: id });
+export const toggleFav = (item) => ({ type: TOGGLE_FAV, payload: item });
 
 export const fetchData = () => async (dispatch, getState) => {
   const { data, page, query } = getState();

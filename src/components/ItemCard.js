@@ -36,7 +36,7 @@ export const ItemCard = ({ item }) => {
               </div>
             </div>
             <p className='p-1-v'>{item.description}</p>
-            <Button onClick={() => dispatch(toggleFav(item.id))}>
+            <Button onClick={() => dispatch(toggleFav(item))}>
               {isFav ? 'Delete from favorites' : 'Add to favorites'}
             </Button>
           </div>
