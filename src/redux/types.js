@@ -3,6 +3,7 @@ export const FETCH_DATA_SUCCESS = 'FETCH_DATA_SUCCESS';
 export const FETCH_NEXT_DATA_SUCCESS = 'FETCH_NEXT_DATA_SUCCESS';
 export const FETCH_DATA_FAILURE = 'FETCH_DATA_FAILURE';
 export const SET_FAV = 'SET_FAV';
+export const TOGGLE_FAV = 'TOGGLE_FAV';
 export const SET_PAGE = 'SET_PAGE';
 export const SET_QUERY = 'SET_QUERY';
 export const SET_HAS_MORE = 'SET_HAS_MORE';

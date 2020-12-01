@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { useGithub } from './hooks/useGithub';
+// import { useGithub } from './hooks/useGithub';
 
 import {
   fetchData,
@@ -16,8 +16,7 @@ import {
 import { Header } from './components';
 import { Main, Favorites } from './pages';
 
-// search -
-// infinite loading -
+// search after loading next
 // rewrite to class component -
 // cleaning -
 
@@ -39,19 +38,12 @@ export const App = () => {
   }, [page, query]);
 
   const handleNext = () => {
-    if (page < Math.ceil(dataCount / 20)) {
-      dispatch(setPage((page) => page + 1));
+    const totalPage = Math.ceil(dataCount / 20);
+    console.log('totalPage: ', totalPage);
+    if (page < totalPage) {
+      dispatch(setPage(page + 1));
       dispatch(fetchData());
     } else dispatch(setHasMore(false));
-  };
-
-  const toggleFavorite = (id) => {
-    const exist = fav.find((i) => i.id === id);
-    if (exist) {
-      dispatch(setFav(fav.filter((i) => i.id !== id)));
-    } else {
-      dispatch(setFav([...fav, data.find((i) => i.id === id)]));
-    }
   };
 
   return (
@@ -74,14 +66,13 @@ export const App = () => {
                 fav={fav}
                 isFav={setFav}
                 hasMore={hasMore}
-                toggleFavorite={toggleFavorite}
                 handleNext={handleNext}
                 setQuery={setQuery}
                 setPage={setPage}
               />
             </Route>
             <Route path='/favorites'>
-              <Favorites fav={fav} toggleFavorite={toggleFavorite} />
+              <Favorites fav={fav} />
             </Route>
           </Switch>
         )}

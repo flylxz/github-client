@@ -7,12 +7,10 @@ import {
   SET_QUERY,
   SET_HAS_MORE,
   SET_FAV,
+  TOGGLE_FAV,
 } from './types';
 
 const accessToken = process.env.REACT_APP_GITHUB_PERSONAL_ACCESS_TOKEN || '';
-
-// const _apiUrl = 'https://api.github.com/';
-// let url = `${_apiUrl}search/repositories`;
 
 export const fetchDataRequest = () => ({
   type: FETCH_DATA_REQUEST,
@@ -37,12 +35,14 @@ export const setPage = (page) => ({ type: SET_PAGE, payload: page });
 
 export const setQuery = (query) => ({ type: SET_QUERY, payload: query });
 
-export const setHasMore = (hasMore) => ({
+export const setHasMore = (hasMore) => (dispatch, getState) => ({
   type: SET_HAS_MORE,
   payload: hasMore,
 });
 
 export const setFav = (fav) => ({ type: SET_FAV, payload: fav });
+
+export const toggleFav = (id) => ({ type: TOGGLE_FAV, payload: id });
 
 export const fetchData = () => async (dispatch, getState) => {
   const { data, page, query } = getState();

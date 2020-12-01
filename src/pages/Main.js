@@ -3,15 +3,7 @@ import PropTypes from 'prop-types';
 
 import { ItemCard, Search, InfiniteScrollComponent } from '../components';
 
-export const Main = ({
-  data,
-  fav,
-  hasMore,
-  toggleFavorite,
-  handleNext,
-  setQuery,
-  setPage,
-}) => {
+export const Main = ({ data, fav, hasMore, handleNext, setQuery }) => {
   // console.log(data);
 
   const [choosenItem, setChoosenItem] = useState(null);
@@ -42,7 +34,7 @@ export const Main = ({
         </ul>
       </section>
       <section className='col-1'>
-        <ItemCard item={choosenItem} fav={fav} handleClick={toggleFavorite} />
+        <ItemCard item={choosenItem} />
       </section>
     </div>
   );
@@ -52,7 +44,6 @@ Main.propTypes = {
   data: PropTypes.array.isRequired,
   fav: PropTypes.array.isRequired,
   hasMore: PropTypes.bool.isRequired,
-  toggleFavorite: PropTypes.func.isRequired,
   handleNext: PropTypes.func.isRequired,
   setQuery: PropTypes.func.isRequired,
 };

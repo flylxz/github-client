@@ -7,6 +7,7 @@ import {
   SET_QUERY,
   SET_HAS_MORE,
   SET_FAV,
+  TOGGLE_FAV,
 } from './types';
 
 const initialState = {
@@ -18,6 +19,16 @@ const initialState = {
   hasMore: true,
   loading: true,
   error: '',
+};
+
+const toggleFavorite = (state, id) => {
+  const { data, fav } = state;
+  const exist = fav.find((i) => i.id === id);
+  if (exist) {
+    return { ...state, fav: fav.filter((i) => i.id !== id) };
+  } else {
+    return { ...state, fav: [...fav, data.find((i) => i.id === id)] };
+  }
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -46,6 +57,10 @@ export const rootReducer = (state = initialState, action) => {
 
     case SET_FAV:
       return { ...state, fav: action.payload };
+
+    case TOGGLE_FAV:
+      const id = action.payload;
+      return toggleFavorite(state, id);
 
     default:
       return state;

@@ -1,10 +1,16 @@
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleFav } from '../redux/actions';
+
 import { FaStar } from 'react-icons/fa';
 import { VscGithub } from 'react-icons/vsc';
 
 import { Button } from '../styledComponents';
 
-export const ItemCard = ({ item, fav, handleClick }) => {
+export const ItemCard = ({ item }) => {
+  const dispatch = useDispatch();
+  const { fav } = useSelector((state) => state);
+
   let isFav;
   if (item) isFav = !!fav.find((i) => i.id === item.id);
 
@@ -30,7 +36,7 @@ export const ItemCard = ({ item, fav, handleClick }) => {
               </div>
             </div>
             <p className='p-1-v'>{item.description}</p>
-            <Button onClick={() => handleClick(item.id)}>
+            <Button onClick={() => dispatch(toggleFav(item.id))}>
               {isFav ? 'Delete from favorites' : 'Add to favorites'}
             </Button>
           </div>
@@ -42,6 +48,4 @@ export const ItemCard = ({ item, fav, handleClick }) => {
 
 ItemCard.propTypes = {
   item: PropTypes.object,
-  fav: PropTypes.array.isRequired,
-  handleClick: PropTypes.func.isRequired,
 };
