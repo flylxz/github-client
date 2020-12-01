@@ -7,3 +7,4 @@ export const TOGGLE_FAV = 'TOGGLE_FAV';
 export const SET_PAGE = 'SET_PAGE';
 export const SET_QUERY = 'SET_QUERY';
 export const SET_HAS_MORE = 'SET_HAS_MORE';
+export const SET_LODAING_NEXT = 'SET_LODAING_NEXT';

@@ -25,6 +25,7 @@ export const ListItem = ({
 
 ListItem.propTypes = {
   item: PropTypes.object.isRequired,
+  idx: PropTypes.number.isRequired,
   fav: PropTypes.array.isRequired,
   handleClick: PropTypes.func.isRequired,
 };

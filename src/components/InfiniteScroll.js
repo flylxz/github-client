@@ -38,8 +38,8 @@ export const InfiniteScrollComponent = ({
 };
 
 InfiniteScrollComponent.propTypes = {
-  data: PropTypes.array,
-  fav: PropTypes.array,
+  data: PropTypes.array.isRequired,
+  fav: PropTypes.array.isRequired,
   hasMore: PropTypes.bool.isRequired,
   handleNext: PropTypes.func.isRequired,
   chooseItem: PropTypes.func.isRequired,

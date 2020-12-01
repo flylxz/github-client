@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { Badge } from '../styledComponents';
+import { Badge } from '../styledComponents'; // not working
 
 export const Header = ({ num }) => {
   return (

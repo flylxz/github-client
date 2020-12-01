@@ -19,7 +19,7 @@ export const ItemCard = ({ item }) => {
       {item && (
         <div className='block card'>
           <div className='space-btw center p-1'>
-            <div className='break-text'>{item.full_name}</div>
+            <div className='break-text text-blue'>{item.full_name}</div>
             <div className='center'>
               <FaStar size={24} color='yellow' />
               {item.stargazers_count}
@@ -31,7 +31,7 @@ export const ItemCard = ({ item }) => {
               <img className='small' src={item.owner.avatar_url} alt='avatar' />
 
               <div className='center'>
-                <p className='p-1-h'>{item.owner.login}</p>
+                <p className='p-1-h text-blue'>{item.owner.login}</p>
                 <VscGithub size={16} />
               </div>
             </div>
@@ -48,4 +48,5 @@ export const ItemCard = ({ item }) => {
 
 ItemCard.propTypes = {
   item: PropTypes.object,
+  fav: PropTypes.array,
 };
