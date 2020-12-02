@@ -32,7 +32,7 @@ export const fetchDataFailure = (error) => ({
   payload: error,
 });
 
-export const setPage = () => ({ type: SET_PAGE });
+export const setPage = (page) => ({ type: SET_PAGE, payload: page });
 
 export const setQuery = (query) => ({ type: SET_QUERY, payload: query });
 
@@ -54,8 +54,8 @@ export const fetchData = () => async (dispatch, getState) => {
   let url = `${_apiUrl}search/repositories`;
 
   if (query.length) {
-    setPage(1);
-    url += `?q=${query}&sort=stars&page=${page}&per_page=20&access_token=${accessToken}`;
+    // dispatch(setPage(1));
+    url += `?q=${query}&sort=stars&page=${page}&sort=stars&per_page=20&access_token=${accessToken}`;
   } else {
     url += `?q=created:>2020-01-01&sort=stars&page=${page}&per_page=20&access_token=${accessToken}`;
   }

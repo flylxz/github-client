@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { setQuery, setLoadingNext } from '../redux/actions';
+import { setQuery, setLoadingNext, setPage } from '../redux/actions';
 
 import { ItemCard, Search, InfiniteScrollComponent } from '../components';
 
@@ -31,11 +31,16 @@ class Main extends Component {
     this.setState({ choosenItem });
   };
 
+  handleSearch = (query) => {
+    this.props.setPage(1);
+    this.props.setQuery(query);
+  };
+
   render() {
     return (
       <div className='container space-btw main'>
         <section className='col-1'>
-          <Search setQuery={this.props.setQuery} />
+          <Search setQuery={this.handleSearch} />
           <ul className='block scroll'>
             <li className='tab-head space-btw center'>
               <p className='col-1 gap-1 right'>No</p>
@@ -66,7 +71,7 @@ const mapStateToProps = ({ data, fav, hasMore }) => ({
   hasMore,
 });
 
-const mapDispatchToProps = { setQuery, setLoadingNext };
+const mapDispatchToProps = { setQuery, setLoadingNext, setPage };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
 
@@ -76,4 +81,5 @@ Main.propTypes = {
   hasMore: PropTypes.bool.isRequired,
   setQuery: PropTypes.func.isRequired,
   setLoadingNext: PropTypes.func.isRequired,
+  setPage: PropTypes.func.isRequired,
 };

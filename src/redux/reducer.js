@@ -33,9 +33,16 @@ const toggleFavorite = (state, item) => {
     return { ...state, fav: [...fav, item] };
   }
 };
+
 const handleNext = (state) => {
   if (state.page < state.totalPages) return { ...state, page: state.page + 1 };
   else return { ...state, hasMore: false };
+};
+
+const setPage = (state, page = undefined) => {
+  console.log(page);
+  if (page) return { ...state, page };
+  else return { ...state, page: state.page + 1 };
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -54,7 +61,7 @@ export const rootReducer = (state = initialState, action) => {
       return { ...state, loading: false, error: action.payload };
 
     case SET_PAGE:
-      return { ...state, page: state.page + 1 };
+      return setPage(state, action.payload);
 
     case SET_QUERY:
       return { ...state, query: action.payload, page: 1, hasMore: true };
